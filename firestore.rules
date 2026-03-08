@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /sessions/{sessionId} {
+      // Sessions are readable only by knowing the sessionId (unguessable - 126 bit entropy)
+      allow read: if true;
+      // Sessions are only written by Cloud Functions using Admin SDK (bypasses these rules)
+      allow write: if false;
+    }
+    match /rateLimits/{docId} {
+      // Rate limit docs written by server only
+      allow read, write: if false;
+    }
+  }
+}
