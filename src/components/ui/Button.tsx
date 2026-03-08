@@ -1,8 +1,8 @@
 'use client'
-import { ButtonHTMLAttributes, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { forwardRef } from 'react'
+import { motion, HTMLMotionProps } from 'framer-motion'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
@@ -41,9 +41,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            {children}
+            {children as React.ReactNode}
           </span>
-        ) : children}
+        ) : (children as React.ReactNode)}
       </motion.button>
     )
   }
